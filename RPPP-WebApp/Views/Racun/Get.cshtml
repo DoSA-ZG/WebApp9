@@ -1,0 +1,22 @@
+@model RPPP_WebApp.Models.Racun
+
+
+<tr hx-target="this" hx-swap="outerHTML">
+    <td class="text-left">@Model.ImeRacuna</td>
+    <td class="text-left">@Model.Iban</td>
+    <td class="text-left">@Model.IdValutaNavigation.IsoOznaka</td>
+    <td>
+        <a asp-action="Edit"
+           asp-route-id="@Model.IdRacuna"
+           class="btn btn-sm"
+           title="Ažuriraj">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+    <td>
+        <button class="btn-danger btn btn-sm" hx-confirm="Obrisati račun?" hx-delete="@Url.Action(nameof(RacunController.Delete), new { id = Model.IdRacuna })">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+
+</tr>

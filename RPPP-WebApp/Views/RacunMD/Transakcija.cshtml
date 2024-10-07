@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Transakcija>
+
+<table class="table table-striped" id="table-transakcije">
+    <thead>
+    <tr>
+    @{
+        var count = 0;
+        string[] nazivi = { "Vanjski IBAN", "Unutarnji račun", "Iznos", "Vrsta", "Unutarnja/vanjska" };
+        for (int i = 1; i <= nazivi.Length; i++)
+        {
+            <th class="text-left">
+                @nazivi[i - 1]
+            </th>
+        }
+
+        <th></th>
+    }
+    <tr>
+    </thead>
+    <tbody>
+    @if (Model != null)
+    {
+        @foreach (var transakcija in Model)
+        {
+            var dateTime = DateTime.Now;
+            var autocompleteKey = dateTime.ToString() + dateTime.Nanosecond + dateTime.Millisecond;
+            <tr>
+                <td class="text-left" id="idColumn">
+                    <input type="hidden" id="count" value="@count"/>
+                    <input id="idValue" name="Transakcija[@count].Id" value="@transakcija.Idtransakcije" type="hidden"/>
+                    <input name="Transakcija[@count].VanjskiIban" value="@transakcija.VanjskiIban"/>
+                    
+                </td>
+                <td class="text-left">
+                    @{
+                        if (transakcija.UnutarnjiRacun == null || transakcija.UnutarnjiIdRacuna == null)
+                        {
+                            transakcija.UnutarnjiRacun = new Racun();
+                            transakcija.UnutarnjiRacun.ImeRacuna = "";
+                            transakcija.UnutarnjiIdRacuna = 0;
+                        }
+                        <input value="@transakcija.UnutarnjiRacun.ImeRacuna" type="text"
+                               data-autocomplete="Racun" data-autocomplete-placeholder-name="@autocompleteKey"/>
+                        <input id="transakcija-unutarnjiId"
+                               name="Transakcija[@count].UnutarnjiIdRacuna" value="@transakcija.UnutarnjiIdRacuna" hidden="hidden"
+                               data-autocomplete-placeholder="@autocompleteKey"/>
+                    }
+                    
+                </td>
+                <td class="text-left">
+                    <input name="Transakcija[@count].Iznos" value="@transakcija.Iznos"/>
+                </td>
+                <td class="text-left">
+                    <input value="@transakcija.VrstaTransakcije.Naziv" type="text"
+                           data-autocomplete="VrstaTransakcije" data-autocomplete-placeholder-name="@autocompleteKey"/>
+                    <input id="transakcija-vrstaId"
+                           name="Transakcija[@count].IdvrstaTransakcije" value="@transakcija.IdvrstaTransakcije" hidden="hidden"
+                           data-autocomplete-placeholder="@autocompleteKey"/>
+                </td>
+                <td class="text-left">
+                    <input name="Transakcija[@count].SmjerTransakcije" value="@transakcija.SmjerTransakcije"/>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-sm btn-danger deleterow" title="Izbaci">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </td>
+            </tr>
+            ++count;
+        }
+    }
+
+    <tr>
+        <td class="text-left col-sm-1">
+            <input id="transakcija-vanjskiIban"/>
+            <input id="zadnji-count" value="@count" hidden="hidden"/>
+        </td>
+        <td class="text-left col-sm-1">
+            <input id="transakcija-unutarnji"
+                   data-autocomplete-placeholder-name="transakcijaId" data-autocomplete="Racun"/>
+            <input id="transakcija-unutarnjiId" data-autocomplete-placeholder="unutarnjiId" type="hidden"/>
+        </td>
+        <td class="text-left col-sm-1">
+            <input id="transakcija-iznos"/>
+        </td>
+        <td class="text-left col-sm-1">
+            <input id="transakcija-vrsta"
+                   data-autocomplete-placeholder-name="transakcijaId" data-autocomplete="VrstaTransakcije"/>
+            <input id="transakcija-vrstaId" data-autocomplete-placeholder="vrstaId" type="hidden"/>
+        </td>
+        <td class="text-left col-sm-1">
+            <input id="transakcija-smjer"/>
+        </td>
+        <td>
+            <button id="transakcija-dodaj" class="btn btn-sm btn-secondary" title="Dodaj">
+                <i class="fas fa-plus"></i>
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>

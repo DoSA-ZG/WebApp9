@@ -1,0 +1,78 @@
+@model RPPP_WebApp.Models.Zadatak
+
+@{
+    ViewBag.Title = "Ažuriranje zadatka";
+}
+
+<form asp-controller="ZadatakV2" asp-route-id="@Model.IdZadatak"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      asp-action="Edit"
+      method="post">
+
+    <td class="text-start">
+        <span asp-validation-for="IdZadatak" class="text-danger"></span>
+        <input asp-for="IdZadatak" class="form-control" type="hidden"/>
+    </td>
+
+    <td class="text-start">
+        <label asp-for="Naziv"></label>
+        <span asp-validation-for="Naziv" class="text-danger"></span>
+        <input asp-for="Naziv" class="form-control" />
+    </td>
+
+    <div class="form-group">
+        <label class="form-label">Vrsta zadatka</label>
+        <select class="form-control" asp-for="IdVrstaZdtk" asp-items="ViewBag.VrsteZadataka">
+            <option disabled selected value="">Odaberite vrstu zadatka</option>
+        </select>
+        <div class="form-text"><span asp-validation-for="IdVrstaZdtk" class="text-danger"></span></div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Zahtjev</label>
+        <select class="form-control" asp-for="IdZahtjev" asp-items="ViewBag.Zahtjevi">
+            <option disabled selected value="">Odaberite zahtjev</option>
+        </select>
+        <div class="form-text"><span asp-validation-for="IdZahtjev" class="text-danger"></span></div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Osoba</label>
+        <select class="form-control" asp-for="IdOsoba" asp-items="ViewBag.Osobe">
+            <option disabled selected value="">Odaberite osobu</option>
+        </select>
+        <div class="form-text"><span asp-validation-for="IdOsoba" class="text-danger"></span></div>
+    </div>
+
+    <td class="text-start">
+        <label asp-for="VrijemeIsporuke">Vrijeme isporuke</label>
+        <span asp-validation-for="VrijemeIsporuke" class="text-danger"></span>
+        <input asp-for="VrijemeIsporuke" class="form-control" type="date" />
+    </td>
+
+    <td class="text-start">
+        <label asp-for="StupanjDovrsenosti">Stupanj dovršenosti</label>
+        <span asp-validation-for="StupanjDovrsenosti" class="text-danger"></span>
+        <input asp-for="StupanjDovrsenosti" class="form-control" type="number"/>
+    </td>
+
+    <td class="text-start">
+        <label asp-for="Prioritetnost"></label>
+        <span asp-validation-for="Prioritetnost" class="text-danger"></span>
+        <input asp-for="Prioritetnost" class="form-control" />
+    </td>
+
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Ažuriraj</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">
+            Odustani
+        </a>
+    </div>
+
+</form>

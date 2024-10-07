@@ -1,0 +1,20 @@
+﻿@model RPPP_WebApp.Models.VrstaZadatka
+
+
+<tr hx-target="this" hx-swap="outerHTML">
+    <td class="text-left">@Model.NazivVrsteZdtk</td>
+    <td>
+        <a asp-action="Edit"
+           asp-route-id="@Model.IdVrstaZdtk"
+           class="btn btn-sm"
+           title="Ažuriraj">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+    <td>
+        <button class="btn-danger btn btn-sm" hx-confirm="Izbrisati vrstu zadatka?" hx-delete="@Url.Action(nameof(VrstaZadatkaV2Controller.Delete), new { id = Model.IdVrstaZdtk })">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+
+</tr>

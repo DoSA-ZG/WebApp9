@@ -1,0 +1,29 @@
+﻿<table id="template" style="visibility:hidden">
+    <tr>
+        <td class="text-left" id="idColumn">
+            <input type="hidden" id="count" value="--sifra--" />
+            <input name="ZaduzenaOsoba[--sifra--].ImeOsobe" value="--imeOsobe--"  />
+            <input id="idValue" name="ZaduzenaOsoba[--sifra--].IdOsoba" value="" type="hidden" />
+            <input type="hidden" name="ZaduzenaOsoba[--sifra--].IdOsoba" value="0" />
+        </td>
+        <td class="text-left col-sm-1">
+            <input name="ZaduzenaOsoba[--sifra--].PrezimeOsobe" class="form-control" value="--prezimeOsobe--"  />
+        </td>
+        <td class="text-left col-sm-1">
+            <input name="ZaduzenaOsoba[--sifra--].Email" class="form-control" value="--email--"  />
+        </td>
+        <td class="text-left col-sm-1">
+            <input name="ZaduzenaOsoba[--sifra--].Telefon" class="form-control" value="--telefon--"  />
+        </td>
+        <td class="text-left col-sm-1">
+            <input name="ZaduzenaOsoba[--sifra--].Iban" class="form-control" value="--iban--"  />
+        </td>
+        @{
+            var dateTime = DateTime.Now;
+            var autocompleteKey = dateTime.ToString() + dateTime.Nanosecond + dateTime.Millisecond;
+        }
+        <td>
+            <button class="btn btn-sm btn-danger deleterow" title="Izbaci"><i class="fas fa-minus"></i></button>
+        </td>
+    </tr>
+</table>

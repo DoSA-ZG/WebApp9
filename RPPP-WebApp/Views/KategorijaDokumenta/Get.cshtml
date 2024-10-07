@@ -1,0 +1,20 @@
+﻿@model RPPP_WebApp.Models.KategorijaDokumenta
+
+
+<tr hx-target="this" hx-swap="outerHTML">
+    <td class="text-left">@Model.NazivKategorijeDokumenta</td>
+    <td>
+        <a asp-action="Edit"
+           asp-route-id="@Model.KategorijaDokumentaId"
+           class="btn btn-sm"
+           title="Ažuriraj">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+    <td>
+        <button class="btn-danger btn btn-sm" hx-confirm="Obrisati kategoriju dokumenta?" hx-delete="@Url.Action(nameof(KategorijaDokumentaController.Delete), new { id = Model.KategorijaDokumentaId })">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+
+</tr>

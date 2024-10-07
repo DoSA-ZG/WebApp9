@@ -1,0 +1,42 @@
+@model RPPP_WebApp.Models.Transakcija
+
+
+<tr hx-target="this" hx-swap="outerHTML">
+    <td class="text-left">@Model.Racun.ImeRacuna</td>
+    @{
+        if (Model.SmjerTransakcije.Equals("U") && Model.UnutarnjiRacun != null)
+        {
+            <td class="text-left">@Model.UnutarnjiRacun.Iban (@Model.UnutarnjiRacun.ImeRacuna)</td>
+        }
+        else
+        {
+            <td class="text-left">@Model.VanjskiIban</td>
+        }
+    }
+    <td class="text-left">@Model.Iznos</td>
+    <td class="text-left">@Model.VrstaTransakcije.Naziv</td>
+    @{
+        if (Model.SmjerTransakcije == "U")
+        {
+            <td class="text-left">Unutarnja</td>
+        }
+        else
+        {
+            <td class="text-left">Vanjska</td>
+        }
+    }
+    <td>
+        <a asp-action="Edit"
+           asp-route-id="@Model.Idtransakcije"
+           class="btn btn-sm"
+           title="Ažuriraj">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+    <td>
+        <button class="btn-danger btn btn-sm" hx-confirm="Obrisati transakciju?" hx-delete="@Url.Action(nameof(TransakcijaController.Delete), new { id = Model.Idtransakcije })">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+
+</tr>

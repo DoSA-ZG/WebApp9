@@ -1,0 +1,75 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model RPPP_WebApp.Models.Projekt
+
+@{
+    ViewBag.Title = "Novi projekt";
+}
+
+<form asp-action="Create" method="post">
+
+    <td class="text-start">
+        <label asp-for="ImeProjekta"></label>
+        <span asp-validation-for="ImeProjekta" class="text-danger"></span>
+        <input asp-for="ImeProjekta" class="form-control" />
+    </td>
+
+    <td class="text-start">
+        <label asp-for="PocetakProjekta"></label>
+        <span asp-validation-for="PocetakProjekta" class="text-danger"></span>
+        <input asp-for="PocetakProjekta" class="form-control" type="date" />
+    </td>
+
+    <td class="text-start">
+        <label asp-for="KrajProjekta"></label>
+        <span asp-validation-for="KrajProjekta" class="text-danger"></span>
+        <input asp-for="KrajProjekta" class="form-control" type="date" />
+    </td>
+
+    <td class="text-start">
+        <label asp-for="Oznaka"></label>
+        <span asp-validation-for="Oznaka" class="text-danger"></span>
+        <input asp-for="Oznaka" class="form-control" />
+    </td>
+
+    <div class="form-group">
+        <label class="form-label">Vrsta projekta</label>
+        <select class="form-control" asp-for="IdVrstaProjekta" asp-items="ViewBag.VrsteProjekata">
+            <option disabled selected value="">-- Odaberite vrstu projekta --</option>
+        </select>
+        <div class="form-text"><span asp-validation-for="IdVrstaProjekta" class="text-danger"></span></div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Račun</label>
+        <select class="form-control" asp-for="IdRacuna" asp-items="ViewBag.Racuni">
+            <option disabled selected value="">-- Odaberite račun --</option>
+        </select>
+        <div class="form-text"><span asp-validation-for="IdRacuna" class="text-danger"></span></div>
+    </div>
+
+    <td class="text-start">
+        <label asp-for="Opis"></label>
+        <span asp-validation-for="Opis" class="text-danger"></span>
+        <input asp-for="Opis" class="form-control" />
+    </td>
+
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Spremi</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">
+            Odustani
+        </a>
+    </div>
+
+</form>
+
+@section scripts {
+    <partial name="IncludeValidation" />
+}

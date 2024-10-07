@@ -1,0 +1,32 @@
+﻿<table id="posao-template" style="visibility:hidden">
+    <tr>
+        <td class="text-left" id="idColumn">
+            <input type="hidden" id="count" value="--sifra--" />
+            <input name="Posao[--sifra--].Naziv" value="--naziv--" />
+            <input id="idValue" name="Posao[--sifra--].PosaoId" value="" type="hidden" />
+            <input type="hidden" name="Posao[--sifra--].PosaoId" value="0" />
+        </td>
+        <td class="text-left col-sm-1">
+            <input type="date" name="Posao[--sifra--].OcekivaniPocetak" value="--pocetak--" />
+        </td>
+        <td class="text-left col-sm-1">
+            <input type="date" name="Posao[--sifra--].OcekivaniZavrsetak" value="--zavrsetak--" />
+        </td>
+        <td class="text-left col-sm-1">
+            <input name="Posao[--sifra--].Budzet" value="--budzet--" />
+        </td>
+        @{
+            var dateTime = DateTime.Now;
+            var autocompleteKey = dateTime.ToString() + dateTime.Nanosecond + dateTime.Millisecond;
+            <td class="text-left col-sm-1">
+                <input class="form-control" value="--vrstaPosla--"
+                       data-autocomplete="VrstaPosla" data-autocomplete-placeholder-name="@autocompleteKey" />
+                <input name="Posao[--sifra--].VrstaPoslaId" type="hidden" class="form-control" value="--vrstaPoslaId--"
+                       data-autocomplete-placeholder="@autocompleteKey" />
+            </td>
+        }
+        <td>
+            <button class="btn btn-sm btn-danger deleterow" title="Izbaci"><i class="fas fa-minus"></i></button>
+        </td>
+    </tr>
+</table>

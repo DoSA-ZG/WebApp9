@@ -1,0 +1,130 @@
+﻿@model RPPP_WebApp.ViewModels.ProjektiMDViewModel
+
+@{
+    ViewBag.Title = "Projekti";
+}
+
+<h2>Popis projekata</h2>
+
+<a asp-action="CreateOrEdit">Kreiraj novi projekt</a>
+
+<br>
+
+Odaberite željenu stranicu:
+
+<table class="table table-sm table-striped table-hover">
+    <tr>
+        @for (var i = 1; ((i - 1) * Model.PagingInfo.ItemsPerPage) < Model.PagingInfo.TotalItems; i += 1)
+        {
+            @if (i == Model.PagingInfo.CurrentPage)
+            {
+                <a class="btn btn-dark"
+                   href="@Url.Action(nameof(ProjektController.Index), new { page = i, sort = Model.PagingInfo.Sort,
+                ascending = Model.PagingInfo.Ascending })">@i</a>
+            }
+            else
+            {
+                <a class="btn btn-primary"
+                   href="@Url.Action(nameof(ProjektController.Index), new { page = i, sort = Model.PagingInfo.Sort,
+                ascending = Model.PagingInfo.Ascending })">@i</a>
+            }
+
+        }
+    </tr>
+</table>
+
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            @{
+                string[] nazivi = { "Naziv projekta", "Početak projekta", "Zavrsetak projekta", "Oznaka", "Vrsta projekta", "Račun", "Opis", "Dokumenti", "Poslovi", "Radnici" };
+                for (int i = 1; i <= nazivi.Length; i++) {
+                <th>
+                    <a asp-route-sort="@i"
+                       asp-route-page="@Model.PagingInfo.CurrentPage"
+                       asp-route-ascending="@(Model.PagingInfo.Sort == i ? !Model.PagingInfo.Ascending : true)">
+                        @nazivi[i - 1]
+                    </a>
+                </th>
+                }
+            }
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var projekt in Model.Projekti) {
+        <tr>
+                <td class="text-left">@projekt.Projekt.ImeProjekta</td>
+                <td class="text-left">@projekt.Projekt.PocetakProjekta.ToString("dd/M/yyyy")</td>
+                <td class="text-left">@projekt.Projekt.KrajProjekta.ToString("dd/M/yyyy")</td>
+                <td class="text-left">@projekt.Projekt.Oznaka</td>
+                <td class="text-left">@projekt.Projekt.VrstaProjekta.Naziv</td>
+                <td class="text-left">@projekt.Projekt.Racun.Iban</td>
+                <td class="text-left">@projekt.Projekt.Opis</td>
+
+                <td class="text-left">
+                    <a asp-action="ShowDokumenti" class="clickable-link"
+                       asp-route-id="@projekt.Projekt.IdProjekt"
+                       asp-route-page="@Model.PagingInfo.CurrentPage"
+                       asp-route-sort="@Model.PagingInfo.Sort"
+                       asp-route-ascending="@Model.PagingInfo.Ascending">
+                        @projekt.Dokumenti
+                    </a>
+                </td>
+                <td class="text-left">
+                    <a asp-action="ShowPoslovi" class="clickable-link"
+                       asp-route-id="@projekt.Projekt.IdProjekt"
+                       asp-route-page="@Model.PagingInfo.CurrentPage"
+                       asp-route-sort="@Model.PagingInfo.Sort"
+                       asp-route-ascending="@Model.PagingInfo.Ascending">
+                        @projekt.NaziviPoslova
+                    </a>
+                </td>
+                <td class="text-left">
+                    <a asp-action="ShowRadnici" class="clickable-link"
+                       asp-route-id="@projekt.Projekt.IdProjekt"
+                       asp-route-page="@Model.PagingInfo.CurrentPage"
+                       asp-route-sort="@Model.PagingInfo.Sort"
+                       asp-route-ascending="@Model.PagingInfo.Ascending">
+                        @projekt.ImenaRadnika
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="CreateOrEdit"
+                       asp-route-id="@projekt.Projekt.IdProjekt"
+                       asp-route-page="@Model.PagingInfo.CurrentPage"
+                       asp-route-sort="@Model.PagingInfo.Sort"
+                       asp-route-ascending="@Model.PagingInfo.Ascending"
+                       class="btn btn-warning btn-sm" title="Ažuriraj">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-danger"
+                            hx-confirm="Obrisati projekt i pripadajuće poslove i dokumente?"
+                            hx-delete="@Url.Action(nameof(ProjektMDController.Delete), new { id = projekt.Projekt.IdProjekt })"
+                            title="Obriši"
+                            id="obrisiProjektMD">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+@section scripts {
+    <script src="~/js/pager.js" asp-append-version="true"></script>
+    <script src="~/lib/htmx/htmx.min.js" asp-append-version="true"></script>
+    <partial name="IncludeValidation" />
+
+    <script>
+        document.body.addEventListener("showMessage", function (evt) {
+            toastr[evt.detail.messageType](evt.detail.message);
+        })
+    </script>
+}

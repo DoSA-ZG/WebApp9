@@ -1,0 +1,55 @@
+﻿@model RPPP_WebApp.ViewModels.RacunMDViewModel
+
+@{
+    ViewBag.Title = "Ažuriranje računa (master-detail)";
+}
+<div class="container">
+
+    <form asp-route-id="@Model.Racun.IdRacuna"
+          asp-route-page="@ViewBag.Page"
+          asp-route-sort="@ViewBag.Sort"
+          asp-route-ascending="@ViewBag.Ascending"
+          asp-action="Edit"
+          method="post">
+        <div class="mb-3">
+            <input asp-for="@Model.Racun.IdRacuna" value="@Model.Racun.IdRacuna" type="hidden"/>
+            <label class="form-label">Naziv</label>
+            <input asp-for="@Model.Racun.ImeRacuna" class="form-control" value="@Model.Racun.ImeRacuna"/>
+            <div class="form-text">
+                <span asp-validation-for="ImeRacuna" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Valuta</label>
+            <input class="form-control" data-autocomplete="Valuta" data-autocomplete-placeholder-name="valuta"
+                   asp-for="@Model.Racun.IdValutaNavigation.IsoOznaka"/>
+            <input type="hidden" asp-for="IdValuta" readonly="readonly" class="form-control" data-autocomplete-placeholder="projekt"/>
+            <span asp-validation-for="IdValuta" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">IBAN</label>
+            <input asp-for="Iban" class="form-control" type="text" maxlength="34"/>
+            <span asp-validation-for="Iban" class="text-danger"></span>
+        </div>
+        <div>
+            <partial name="Transakcija" model="Model?.Racun?.TransakcijaIdracunaNavigation"/>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">Dodaj</button>
+            <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+        </div>
+    </form>
+</div>
+
+<partial name="TransakcijaTemplate"/>
+
+@section styles {
+    <link rel="stylesheet" href="~/lib/jqueryui/themes/base/jquery-ui.css"/>
+}
+
+@section scripts {
+    <partial name="IncludeValidation"/>
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+    <script src="~/js/autocomplete.js" asp-append-version="true"></script>
+    <script src="~/js/racunMD.js" asp-append-version="true"></script>
+}

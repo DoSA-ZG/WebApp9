@@ -1,0 +1,26 @@
+@model RPPP_WebApp.Models.Suradnik
+
+
+<tr hx-target="this" hx-swap="outerHTML">
+    <td class="text-left">@Model.Naziv</td>
+    <td class="text-left">@Model.Posao.Naziv</td>
+    <td class="text-left">@Model.Oib</td>
+    <td class="text-left">@Model.Adresa</td>
+    <td class="text-left">@Model.PostanskiBroj</td>
+    <td class="text-left">@Model.Grad</td>
+    <td class="text-left">@Model.VrstaSuradnika.Naziv</td>
+    <td>
+        <a asp-action="Edit"
+           asp-route-id="@Model.Id"
+           class="btn btn-sm"
+           title="Ažuriraj">
+            <i class="fas fa-edit"></i>
+        </a>
+        </td>
+    <td>
+        <button class="btn-danger btn btn-sm" hx-confirm="Obrisati suradnika?" hx-delete="@Url.Action(nameof(SuradnikController.Delete), new { id = Model.Id })">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+
+</tr>

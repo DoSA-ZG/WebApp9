@@ -1,0 +1,121 @@
+﻿{
+   "CodeGenerationMode": 3,
+   "ContextClassName": "RPPP09Context",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": true,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "RPPP_WebApp",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[Dokument]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[KategorijaDokumenta]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Osoba]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Posao]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Projekt]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Racun]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Suradnik]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Transakcija]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Uloga]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[UlogaNaProjektu]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Valuta]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[VrstaPosla]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[VrstaProjekta]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[VrstaSuradnika]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[VrstaTransakcije]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[VrstaZadatka]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[VrstaZahtjeva]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Zadatak]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ZaduženaOsoba]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Zahtjev]",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "dosa.RPPP09.dbo",
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false
+}

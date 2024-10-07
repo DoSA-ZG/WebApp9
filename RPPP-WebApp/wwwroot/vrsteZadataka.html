@@ -1,0 +1,68 @@
+﻿﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Pregled svih vrsta zadataka</title>
+    <link href="lib/jqueryui/themes/base/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="lib/jtable/lib/themes/lightcolor/blue/jtable.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            Filtriraj po nazivu vrste zadatka: <input type="text" id="filter" />
+            <button id="btnFilter">Filtriraj</button>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" id="vrsteZadataka">
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/jqueryui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="lib/jtable/lib/jquery.jtable.min.js"></script>
+    <script type="text/javascript" src="lib/jtable/lib/localization/jquery.jtable.hr.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+      $('#vrsteZadataka').jtable({
+        title: 'Popis vrsta zadataka',
+        paging: true,
+        pageSize: 10,
+        sorting: true,
+        defaultSorting: 'IdVrstaZdtk DESC',
+        actions: {
+          listAction: 'jtable/vrstaZadatka/getall',
+          createAction: 'jtable/vrstaZadatka/create',
+          updateAction: 'jtable/vrstaZadatka/update',
+          deleteAction: 'jtable/vrstaZadatka/delete'
+        },
+        fields: {
+          Id: {
+            key: true,
+            list: false
+          },
+          IdVrstaZdtk: {
+            title: 'ID',
+            width: '20%'
+          },
+          Naziv: {
+            title: 'Naziv',
+            width: '40%'
+          }
+      });
+
+      $("#vrsteZadataka").jtable('load');
+
+      $("#btnFilter").click(function (event) {
+        event.preventDefault();
+        $("#vrsteZadataka").jtable('load', {
+          search: $('#filter').val()
+        });
+      });
+    });
+    </script>
+
+</body>
+</html>

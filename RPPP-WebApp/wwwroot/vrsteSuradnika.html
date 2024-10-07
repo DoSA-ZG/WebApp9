@@ -1,0 +1,73 @@
+﻿﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Pregled svih vrsta suradnika</title>
+    <link href="lib/jqueryui/themes/base/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <link href="lib/jtable/lib/themes/lightcolor/blue/jtable.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            Filtriraj po nazivu suradnika: <input type="text" id="filter" />
+            <button id="btnFilter">Filtriraj</button>
+        </div>
+        <div class="row">
+            <div class="col-sm-12" id="vrsteSuradnika">
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/jqueryui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="lib/jtable/lib/jquery.jtable.min.js"></script>
+    <script type="text/javascript" src="lib/jtable/lib/localization/jquery.jtable.hr.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+      $('#vrsteSuradnika').jtable({
+        title: 'Popis vrsta suradnika',
+        paging: true,
+        pageSize: 10,
+        sorting: true,
+        defaultSorting: 'IdVrstaSuradnika DESC',
+        actions: {
+          listAction: 'jtable/vrstaSuradnika/getall',
+          createAction: 'jtable/vrstaSuradnika/create',
+          updateAction: 'jtable/vrstaSuradnika/update',
+          deleteAction: 'jtable/vrstaSuradnika/delete'
+        },
+        fields: {
+          IdMjesta: {
+            key: true,
+            list: false
+          },
+          PostBrojMjesta: {
+            title: 'Id',
+            width: '20%'
+          },
+          NazivMjesta: {
+            title: 'Naziv',
+            width: '40%'
+          },
+          PostNazivMjesta: {
+            title: 'Opis',
+            width: '80%'
+          }
+      });
+
+      $("#vrsteSuradnika").jtable('load');
+
+      $("#btnFilter").click(function (event) {
+        event.preventDefault();
+        $("#vrsteSuradnika").jtable('load', {
+          search: $('#filter').val()
+        });
+      });
+    });
+    </script>
+
+</body>
+</html>

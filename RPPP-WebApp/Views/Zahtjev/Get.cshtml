@@ -1,0 +1,20 @@
+@model RPPP_WebApp.Models.Zahtjev
+
+
+<tr hx-target="this" hx-swap="outerHTML">
+    <td class="text-left">@Model.Naziv</td>
+    <td>
+        <a asp-action="Edit"
+           asp-route-id="@Model.IdZahtjev"
+           class="btn btn-sm"
+           title="Ažuriraj">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+    <td>
+        <button class="btn-danger btn btn-sm" hx-confirm="Obrisati vrstu transakcije?" hx-delete="@Url.Action(nameof(ZahtjevController.Delete), new { id = Model.IdZahtjev })">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+
+</tr>

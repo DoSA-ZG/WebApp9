@@ -1,0 +1,77 @@
+﻿@model RPPP_WebApp.ViewModels.KategorijeDokumenataViewModel
+@{
+    ViewBag.Title = "Kategorija Dokumenta";
+}
+
+<h2>Vrste projekata</h2>
+
+<a asp-action="Create">Kreiraj novu kategoriju dokumenta</a>
+
+<br>
+
+Odaberite željenu stranicu:
+
+<table class="table table-sm table-striped table-hover">
+    <tr>
+        @for (var i = 1; ((i - 1) * Model.PagingInfo.ItemsPerPage) < Model.PagingInfo.TotalItems; i += 1)
+        {
+            @if (i == Model.PagingInfo.CurrentPage)
+            {
+                <a class="btn btn-dark"
+                   href="@Url.Action(nameof(DokumentController.Index), new { page = i, sort = Model.PagingInfo.Sort,
+                ascending = Model.PagingInfo.Ascending })">@i</a>
+            }
+            else
+            {
+                <a class="btn btn-primary"
+                   href="@Url.Action(nameof(DokumentController.Index), new { page = i, sort = Model.PagingInfo.Sort,
+                ascending = Model.PagingInfo.Ascending })">@i</a>
+            }
+
+        }
+    </tr>
+</table>
+
+<pager page-info="@Model.PagingInfo" page-action="Index" page-title="Unesite željenu stranicu" class="float-end"></pager>
+
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            @{
+                string[] nazivi = { "Naziv" };
+                for (int i = 1; i <= nazivi.Length; i++)
+                {
+                    <th>
+                        <a asp-route-sort="@i"
+                           asp-route-page="@Model.PagingInfo.CurrentPage"
+                           asp-route-ascending="@(Model.PagingInfo.Sort == i ? !Model.PagingInfo.Ascending : true)"
+                           class="table-column-font-size">
+                            @nazivi[i - 1]
+                        </a>
+                    </th>
+                }
+            }
+            <th></th>
+            <th></th>
+        <tr>
+    </thead>
+
+    <tbody>
+        @foreach (var kategorijaDokumenta in Model.KategorijeDokumenata)
+        {
+            <partial name="Get" model="kategorijaDokumenta" />
+
+        }
+    </tbody>
+</table>
+
+@section scripts  {
+    <script src="~/js/pager.js" asp-append-version="true"></script>
+    <script src="~/lib/htmx/htmx.min.js" asp-append-version="true"></script>
+
+    <script>
+        document.body.addEventListener("showMessage", function (evt) {
+            toastr[evt.detail.messageType](evt.detail.message);
+        })
+    </script>
+}

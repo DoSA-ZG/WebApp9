@@ -1,0 +1,19 @@
+﻿@model RPPP_WebApp.Models.Uloga
+
+<tr hx-target="this" hx-swap="outerHTML">
+    <td class="text-left">@Model.NazivUloge</td>
+    <td>
+        <a asp-action="Edit"
+           asp-route-id="@Model.IdUloga"
+           class="btn btn-sm"
+           title="Ažuriraj">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+    <td>
+        <button class="btn-danger btn btn-sm" hx-confirm="Izbrisati ulogu?" hx-delete="@Url.Action(nameof(UlogaV2Controller.Delete), new { id = Model.IdUloga })">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+
+</tr>

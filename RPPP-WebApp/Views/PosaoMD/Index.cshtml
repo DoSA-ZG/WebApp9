@@ -1,0 +1,107 @@
+@model RPPP_WebApp.ViewModels.PosloviMDViewModel
+
+@{
+    ViewBag.Title = "Poslovi";
+}
+
+<h2>Popis poslova</h2>
+
+<a asp-action="Create">Kreiraj novi posao</a>
+
+<br>
+
+Odaberite željenu stranicu:
+
+<table class="table table-sm table-striped table-hover">
+    <tr>
+        @for (var i = 1; ((i - 1) * Model.PagingInfo.ItemsPerPage) < Model.PagingInfo.TotalItems; i += 1)
+        {
+            @if (i == Model.PagingInfo.CurrentPage)
+            {
+                <a class="btn btn-dark"
+                   href="@Url.Action(nameof(PosaoController.Index), new { page = i, sort = Model.PagingInfo.Sort,
+                ascending = Model.PagingInfo.Ascending })">@i</a>
+            }
+            else
+            {
+                <a class="btn btn-primary"
+                   href="@Url.Action(nameof(PosaoController.Index), new { page = i, sort = Model.PagingInfo.Sort,
+                ascending = Model.PagingInfo.Ascending })">@i</a>
+            }
+
+        }
+    </tr>
+</table>
+
+<table class="table table-sm table-striped table-hover">
+    <thead>
+        <tr>
+            @{
+                string[] nazivi = { "Naziv", "Projekt", "Ocekivani pocetak", "Ocekivani zavrsetak", "Budzet (EUR)", "Vrsta posla", "Suradnici"};
+                for (int i = 1; i <= nazivi.Length; i++) {
+                <th>
+                    <a asp-route-sort="@i"
+                       asp-route-page="@Model.PagingInfo.CurrentPage"
+                       asp-route-ascending="@(Model.PagingInfo.Sort == i ? !Model.PagingInfo.Ascending : true)">
+                        @nazivi[i - 1]
+                    </a>
+                </th>
+                }
+            }
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var posao in Model.Poslovi) {
+            <tr hx-target="this" hx-swap="outerHTML">
+            <td class="text-left">
+                <a asp-action="Show"
+                   asp-route-id="@posao.Posao.Id"
+                   asp-route-page="@Model.PagingInfo.CurrentPage"
+                   asp-route-sort="@Model.PagingInfo.Sort"
+                   asp-route-ascending="@Model.PagingInfo.Ascending">
+                    @posao.Posao.Naziv
+                </a>
+            </td>
+            <td class="text-left">@posao.Posao.Projekt.ImeProjekta</td>
+            <td class="text-left">@posao.Posao.OcekivaniPocetak.ToString("dd/M/yyyy")</td>
+            <td class="text-left">@posao.Posao.OcekivaniZavrsetak.ToString("dd/M/yyyy")</td>
+            <td class="text-left">@posao.Posao.Budzet</td>
+            <td class="text-left">@posao.Posao.VrstaPosla.Naziv</td>
+            <td class="text-left">@posao.NaziviSuradnika</td>
+            <td>
+                <a asp-action="Edit"
+                    asp-route-id="@posao.Posao.Id"
+                    asp-route-page="@Model.PagingInfo.CurrentPage"
+                    asp-route-sort="@Model.PagingInfo.Sort"
+                    asp-route-ascending="@Model.PagingInfo.Ascending"
+                    class="btn btn-warning btn-sm" title="Ažuriraj">
+                    <i class="fas fa-edit"></i>
+                </a>
+            </td>
+            <td>
+                <button class="btn btn-sm btn-danger"
+                        hx-confirm="Obrisati posao i pripadajuce suradnike?"
+                        hx-delete="@Url.Action(nameof(PosaoMDController.Delete), new { id = posao.Posao.Id })"
+                        title="Obriši"
+                        id="obrisiPosaoMD">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts {
+    <script src="~/js/pager.js" asp-append-version="true"></script>
+    <script src="~/lib/htmx/htmx.min.js" asp-append-version="true"></script>
+    <partial name="IncludeValidation" />
+
+    <script>
+        document.body.addEventListener("showMessage", function (evt) {
+            toastr[evt.detail.messageType](evt.detail.message);
+        })
+    </script>
+}

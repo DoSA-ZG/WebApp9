@@ -1,0 +1,65 @@
+@model RPPP_WebApp.Models.Posao
+
+@{
+    ViewBag.Title = "Ažuriranje posla";
+}
+
+<form asp-route-id="@Model.Id"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      asp-action="Edit"
+      method="post">
+
+    <div class="form-group">
+        <label class="form-label">Projekt</label>
+        <select class="form-control" asp-for="ProjektId" asp-items="ViewBag.Projekti">
+            <option disabled selected value="">Odaberite projekt</option>
+        </select>
+        <div class="form-text"><span asp-validation-for="ProjektId" class="text-danger"></span></div>
+    </div>
+
+    <td class="text-start">
+        <label asp-for="Naziv"></label>
+        <span asp-validation-for="Naziv" class="text-danger"></span>
+        <input asp-for="Naziv" class="form-control" />
+    </td>
+
+    <td class="text-start">
+        <label asp-for="OcekivaniPocetak"></label>
+        <span asp-validation-for="OcekivaniPocetak" class="text-danger"></span>
+        <input asp-for="OcekivaniPocetak" class="form-control" type="date" />
+    </td>
+
+    <td class="text-start">
+        <label asp-for="OcekivaniZavrsetak"></label>
+        <span asp-validation-for="OcekivaniZavrsetak" class="text-danger"></span>
+        <input asp-for="OcekivaniZavrsetak" class="form-control" type="date" />
+    </td>
+
+    <td class="text-start">
+        <label asp-for="Budzet"></label>
+        <span asp-validation-for="Budzet" class="text-danger"></span>
+        <input asp-for="Budzet" class="form-control" type="number" min="0" />
+    </td>
+
+    <div class="form-group">
+        <label class="form-label">Vrsta posla</label>
+        <select class="form-control" asp-for="VrstaPoslaId" asp-items="ViewBag.VrstePoslova">
+            <option disabled selected value="">Odaberite vrstu posla</option>
+        </select>
+        <div class="form-text"><span asp-validation-for="VrstaPoslaId" class="text-danger"></span></div>
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Ažuriraj</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">
+            Odustani
+        </a>
+    </div>
+
+</form>

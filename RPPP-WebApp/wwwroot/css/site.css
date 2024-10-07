@@ -1,0 +1,28 @@
+﻿main {
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.logo-icon {
+  height: 30px;
+}
+
+.validation-summary-errors { font-weight: bold; color:#a94442;}
+.validation-summary-valid { display: none;}
+.input-validation-error{
+    border-color:red;
+}
+
+.clickable-link {
+    text-decoration: none;
+    color: black;
+}
+
+.clickable-link:hover {
+    text-decoration: underline;
+    color: blue;
+}
+
+textarea {
+    width: 100%;
+}

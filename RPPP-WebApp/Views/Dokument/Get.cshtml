@@ -1,0 +1,23 @@
+﻿@model RPPP_WebApp.Models.Dokument
+
+
+<tr hx-target="this" hx-swap="outerHTML">
+    <td class="text-left">@Model.Naslov</td>
+    <td class="text-left">@Model.Projekt.ImeProjekta</td>
+    <td class="text-left">@Model.KategorijaDokumenta.NazivKategorijeDokumenta</td>
+    <td class="text-left">@Model.Sadrzaj</td>
+    <td>
+        <a asp-action="Edit"
+           asp-route-id="@Model.DokumentId"
+           class="btn btn-sm"
+           title="Ažuriraj">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+    <td>
+        <button class="btn-danger btn btn-sm" hx-confirm="Obrisati dokument?" hx-delete="@Url.Action(nameof(ProjektController.Delete), new { id = Model.DokumentId })">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+
+</tr>

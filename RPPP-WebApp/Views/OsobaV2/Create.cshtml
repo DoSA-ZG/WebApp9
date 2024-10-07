@@ -1,0 +1,77 @@
+@model RPPP_WebApp.ViewModels.OsobaV2ViewModel
+
+@{
+    ViewBag.Title = "Nova osoba";
+}
+
+<form asp-action="Create" method="post">
+
+    <td class="text-start">
+        <label asp-for="Osoba.ImeOsobe">Ime</label>
+        <span asp-validation-for="Osoba.ImeOsobe" class="text-danger"></span>
+        <input asp-for="Osoba.ImeOsobe" class="form-control" />
+    </td>
+
+    <td class="text-start">
+        <label asp-for="Osoba.PrezimeOsobe">Prezime</label>
+        <span asp-validation-for="Osoba.PrezimeOsobe" class="text-danger"></span>
+        <input asp-for="Osoba.PrezimeOsobe" class="form-control" />
+    </td>
+
+    <td class="text-start">
+        <label asp-for="Osoba.Email">e-mail</label>
+        <span asp-validation-for="Osoba.Email" class="text-danger"></span>
+        <input asp-for="Osoba.Email" class="form-control" />
+    </td>
+
+    <td class="text-start">
+        <label asp-for="Osoba.Telefon"></label>
+        <span asp-validation-for="Osoba.Telefon" class="text-danger"></span>
+        <input asp-for="Osoba.Telefon" class="form-control" />
+    </td>
+
+    <td class="text-start">
+        <label asp-for="Osoba.Iban">IBAN</label>
+        <span asp-validation-for="Osoba.Iban" class="text-danger"></span>
+        <input asp-for="Osoba.Iban" class="form-control" />
+    </td>
+
+    <div class="form-group">
+        <label class="form-label">Projekt</label>
+        <select class="form-control" asp-for="Projekt.IdProjekt" asp-items="ViewBag.Projekti">
+            <option disabled selected value="">Odaberite projekt</option>
+        </select>
+        <div class="form-text"><span asp-validation-for="Projekt.IdProjekt" class="text-danger"></span></div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Uloga</label>
+        <select class="form-control" asp-for="Uloga.IdUloga" asp-items="ViewBag.Uloge">
+            <option disabled selected value="">Odaberite ulogu</option>
+        </select>
+        <div class="form-text"><span asp-validation-for="Uloga.IdUloga" class="text-danger"></span></div>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Zadatak</label>
+        <select class="form-control" asp-for="Zadatak.IdZadatak" asp-items="ViewBag.Zadatci">
+            <option disabled selected value="">Odaberite zadatak</option>
+        </select>
+        <div class="form-text"><span asp-validation-for="Zadatak.IdZadatak" class="text-danger"></span></div>
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Spremi</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">
+            Odustani
+        </a>
+    </div>
+</form>
+
+@section scripts {
+        <partial name="IncludeValidation" />
+}

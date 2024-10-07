@@ -1,0 +1,125 @@
+@model RPPP_WebApp.Models.Transakcija
+
+@{
+    ViewBag.Title = "Ažuriranje transakcije";
+}
+
+
+<form asp-route-id="@Model.Idtransakcije"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      asp-action="Edit"
+      method="post">
+
+    <input type="hidden" asp-for="Idtransakcije"/>
+
+    <div class="form-group">
+        <label class="form-label">Račun</label>
+        <select class="form-control" asp-for="Idracuna" asp-items="ViewBag.Racuni">
+            <option disabled selected value="">Odaberite račun</option>
+        </select>
+        <div class="form-text">
+            <span asp-validation-for="Idracuna" class="text-danger"></span>
+        </div>
+    </div>
+
+    <!-- Vanjska/unutarnja transakcija -->
+    <div class="form-group">
+        <div class="form-group">
+            <label class="form-label">Smjer transakcije: </label>
+            <div class="form-check form-check-inline">
+                <input asp-for="SmjerTransakcije" class="form-check-input" type="radio" id="unutarnji" value="U" checked>
+                <label class="form-check-label" for="unutarnji">Unutarnja</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input asp-for="SmjerTransakcije" class="form-check-input" type="radio" id="vanjski" value="V">
+                <label class="form-check-label" for="vanjski">Vanjska</label>
+            </div>
+        </div>
+
+        <!-- Vanjski IBAN -->
+        <div class="form-group" id="textForm">
+            <label asp-for="VanjskiIban">Vanjski IBAN</label>
+            <span asp-validation-for="VanjskiIban" class="text-danger"></span>
+            <input asp-for="VanjskiIban" type="text" class="form-control">
+        </div>
+
+        <!-- Odabir unutarnjeg računa -->
+        <div class="form-group" id="groupForm">
+            <label class="form-label">Unutarnji račun</label>
+            <select class="form-control" asp-for="UnutarnjiIdRacuna" asp-items="ViewBag.Racuni">
+                <option disabled selected value="">Odaberite unutarnji račun</option>
+            </select>
+            <div class="form-text">
+                <span asp-validation-for="UnutarnjiIdRacuna" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-start">
+        <label asp-for="Iznos"></label>
+        <span asp-validation-for="Iznos" class="text-danger"></span>
+        <input asp-for="Iznos" class="form-control" type="number" min="0"/>
+    </div>
+
+    <div class="form-group">
+        <label class="form-label">Vrsta transakcije</label>
+        <select class="form-control" asp-for="IdvrstaTransakcije" asp-items="ViewBag.VrsteTransakcija">
+            <option disabled selected value="">Odaberite vrstu transakcije</option>
+        </select>
+        <div class="form-text">
+            <span asp-validation-for="IdvrstaTransakcije" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Ažuriraj</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">
+            Odustani
+        </a>
+    </div>
+
+</form>
+
+
+@section scripts {
+    <partial name="IncludeValidation"/>
+
+    <script>
+        $(document).ready(function () {
+            const smjer = $('input[name="SmjerTransakcije"]').val();
+            if (smjer === 'V') {
+                $('#textForm').show();
+                $('#groupForm').hide();
+                $('#groupForm select').prop('disabled', true).val("");
+                $('#textForm input').prop('disabled', false);
+            } else if (smjer === 'U') {
+                $('#textForm').hide();
+                $('#groupForm').show();
+                $('#textForm input').prop('disabled', true).val("");
+                $('#groupForm select').prop('disabled', false);
+            }
+                
+            $(function() {
+                $('input[name="SmjerTransakcije"]').change(function () {
+                    if ($(this).val() === 'V') {
+                        $('#textForm').show();
+                        $('#groupForm').hide();
+                        $('#groupForm select').prop('disabled', true).val("");
+                        $('#textForm input').prop('disabled', false);
+                    } else if ($(this).val() === 'U') {
+                        $('#textForm').hide();
+                        $('#groupForm').show();
+                        $('#textForm input').prop('disabled', true).val("");
+                        $('#groupForm select').prop('disabled', false);
+                    }
+                });
+            });
+        });
+    </script>
+}

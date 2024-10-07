@@ -1,0 +1,11 @@
+﻿@model RPPP_WebApp.Models.Posao
+
+<table>
+    <tr class="text-left">Naziv: @Model.Naziv</tr>
+    <tr class="text-left">Ime projekta: @Model.Projekt.ImeProjekta</tr>
+    <tr class="text-left">Ocekivani pocetak: @Model.OcekivaniPocetak.ToString("dd/M/yyyy")</tr>
+    <tr class="text-left">Ocekivani zavrsetak: @Model.OcekivaniZavrsetak.ToString("dd/M/yyyy")</tr>
+    <tr class="text-left">Budzet: @Model.Budzet</tr>
+    <tr class="text-left">Vrsta posla: @Model.VrstaPosla.Naziv</tr>
+</table>
+

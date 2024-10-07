@@ -1,0 +1,32 @@
+﻿<table id="uloga-template" style="visibility:hidden">
+    <tr>
+        @{
+            var dateTime = DateTime.Now;
+            var autocompleteKey = dateTime.ToString() + dateTime.Nanosecond + dateTime.Millisecond;
+
+            <td class="text-left col-sm-1" id="idColumn">
+                <input type="hidden" id="uloga-count" value="--sifra--" />
+                <input id="idValue" name="UlogaNaprojektu[--sifra--].Id" value="" type="hidden" />
+                <input type="hidden" name="UlogaNaprojektu[--sifra--].Id" value="0" />
+
+                <input class="form-control" value="--osoba--"
+                       data-autocomplete="Osoba" data-autocomplete-placeholder-name="@autocompleteKey" />
+                <input name="UlogaNaprojektu[--sifra--].IdOsoba" type="hidden" class="form-control" value="--idOsoba--"
+                       data-autocomplete-placeholder="@autocompleteKey" />
+            </td>
+        }
+        @{
+            dateTime = DateTime.Now;
+            autocompleteKey = dateTime.ToString() + dateTime.Nanosecond + dateTime.Millisecond;
+            <td class="text-left col-sm-1">
+                <input class="form-control" value="--uloga--"
+                       data-autocomplete="Uloga" data-autocomplete-placeholder-name="@autocompleteKey" />
+                <input name="UlogaNaprojektu[--sifra--].IdUloga" type="hidden" class="form-control" value="--idUloga--"
+                       data-autocomplete-placeholder="@autocompleteKey" />
+            </td>
+        }
+        <td>
+            <button class="btn btn-sm btn-danger deleterow" title="Izbaci"><i class="fas fa-minus"></i></button>
+        </td>
+    </tr>
+</table>

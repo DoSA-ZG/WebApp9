@@ -1,0 +1,95 @@
+﻿@model RPPP_WebApp.ViewModels.ProjektMDViewModel
+@{
+    ViewBag.Title = "Master detail forma";
+}
+<div>
+    <form asp-action="CreateOrEdit" method="post">
+        <input asp-for="Projekt.IdProjekt" type="hidden"/>
+
+        <td class="text-start">
+            <label asp-for="Projekt.ImeProjekta"></label>
+            <span asp-validation-for="Projekt.ImeProjekta" class="text-danger"></span>
+            <input asp-for="Projekt.ImeProjekta" class="form-control" />
+        </td>
+
+        <td class="text-start">
+            <label asp-for="Projekt.PocetakProjekta"></label>
+            <span asp-validation-for="Projekt.PocetakProjekta" class="text-danger"></span>
+            <input asp-for="Projekt.PocetakProjekta" class="form-control" type="date" />
+        </td>
+
+        <td class="text-start">
+            <label asp-for="Projekt.KrajProjekta"></label>
+            <span asp-validation-for="Projekt.KrajProjekta" class="text-danger"></span>
+            <input asp-for="Projekt.KrajProjekta" class="form-control" type="date" />
+        </td>
+
+        <td class="text-start">
+            <label asp-for="Projekt.Oznaka"></label>
+            <span asp-validation-for="Projekt.Oznaka" class="text-danger"></span>
+            <input asp-for="Projekt.Oznaka" class="form-control" />
+        </td>
+
+        <div class="mb-3">
+            <label class="form-label">Vrsta projekta</label>
+            <input class="form-control" data-autocomplete="VrstaProjekta" data-autocomplete-placeholder-name="vrstaProjekta" 
+            value="@Model.Projekt?.VrstaProjekta?.Naziv"/>
+            <input asp-for="Projekt.IdVrstaProjekta" readonly="readonly" class="form-control" data-autocomplete-placeholder="vrstaProjekta" type="hidden" />
+            <span asp-validation-for="Projekt.IdVrstaProjekta" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Račun</label>
+            <input class="form-control" data-autocomplete="Racun" data-autocomplete-placeholder-name="racun" 
+            value="@Model.Projekt?.Racun?.Iban"/>
+            <input asp-for="Projekt.IdRacuna" readonly="readonly" class="form-control" data-autocomplete-placeholder="racun" type="hidden" />
+            <span asp-validation-for="Projekt.IdRacuna" class="text-danger"></span>
+        </div>
+
+        <td class="text-start">
+            <label asp-for="Projekt.Opis"></label>
+            <span asp-validation-for="Projekt.Opis" class="text-danger"></span>
+            <input asp-for="Projekt.Opis" class="form-control" />
+        </td>
+
+        <div style="margin-top:50px;">
+            <partial name="Dokument" model="Model?.Projekt?.Dokument" />
+        </div>
+
+        <div style="margin-top:50px;">
+            <partial name="Posao" model="Model?.Projekt?.Posao" />
+        </div>
+
+        <div style="margin-top:50px;">
+            <partial name="UlogaNaProjektu" model="Model?.Projekt?.UlogaNaProjektu" />
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">Spremi</button>
+            <a asp-action="Index"
+               asp-route-page="@ViewBag.Page"
+               asp-route-sort="@ViewBag.Sort"
+               asp-route-ascending="@ViewBag.Ascending"
+               class="btn btn-secondary">
+                Odustani
+            </a>
+        </div>
+    </form>
+</div>
+
+<partial name="DokumentTemplate" />
+<partial name="PosaoTemplate" />
+<partial name="UlogaNaProjektuTemplate" />
+
+
+
+@section styles {
+    <link rel="stylesheet" href="~/lib/jqueryui/themes/base/jquery-ui.css" />
+}
+
+@section scripts {
+    <partial name="IncludeValidation" />
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+    <script src="~/js/autocomplete.js" asp-append-version="true"></script>
+    <script src="~/js/zvonimirMD.js" asp-append-version="true"></script>
+}

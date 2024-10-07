@@ -1,0 +1,69 @@
+﻿@model IEnumerable<UlogaNaProjektu>
+
+<h2>Uloge</h2>
+<table class="table table-striped" id="table-uloge">
+    <caption>Popis osoba i njihovih uloga</caption>
+    <thead>
+        <tr>
+            @{
+                var count = 0;
+                string[] nazivi = { "Ime i prezime", "Uloga" };
+                for (int i = 1; i <= nazivi.Length; i++)
+                {
+                    <th class="text-left">
+                        @nazivi[i - 1]
+                    </th>
+                }
+                <th></th>
+            }
+        <tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var uloga in Model)
+            {
+                var dateTime = DateTime.Now;
+                var autocompleteKey = dateTime.ToString() + dateTime.Nanosecond + dateTime.Millisecond;
+                <tr>
+                    <td class="text-left" id="idColumn">
+                        <input type="hidden" id="count" value="@count" />
+                        <input id="idValue" name="UlogaNaProjektu[@count].Id" value="@uloga.Id" type="hidden" />
+
+                        <input value="@uloga.Osoba.ImeOsobe @uloga.Osoba.PrezimeOsobe" type="text"
+                               data-autocomplete="Osoba" data-autocomplete-placeholder-name="@autocompleteKey" />
+                        <input name="UlogaNaProjektu[@count].IdOsoba" value="@uloga.IdOsoba" type="hidden"
+                               data-autocomplete-placeholder="@autocompleteKey" />
+                    </td>
+                    <td class="text-left">
+                        <input value="@uloga.Uloga.NazivUloge" type="text"
+                               data-autocomplete="Uloga" data-autocomplete-placeholder-name="@autocompleteKey" />
+                        <input name="UlogaNaProjektu[@count].IdUloga" value="@uloga.IdUloga" type="hidden"
+                               data-autocomplete-placeholder="@autocompleteKey" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger deleterow" title="Izbaci"><i class="fa fa-minus"></i></button>
+                    </td>
+                </tr>
+                ++count;
+            }
+        }
+
+        <tr>
+            <td class="text-left col-sm-1">
+                <input id="ulogaNaProjektu-osoba"
+                       data-autocomplete-placeholder-name="idOsoba" data-autocomplete="Osoba" />
+                <input id="ulogaNaProjektu-idOsoba" data-autocomplete-placeholder="idOsoba" type="hidden" />
+                <input id="uloga-zadnji-count" value="@count" hidden="hidden" />
+            </td>
+            <td class="text-left col-sm-1">
+                <input id="ulogaNaProjektu-uloga"
+                       data-autocomplete-placeholder-name="idUloga" data-autocomplete="Uloga" />
+                <input id="ulogaNaProjektu-idUloga" data-autocomplete-placeholder="idUloga" type="hidden" />
+            </td>
+            <td>
+                <button id="uloga-dodaj" class="btn btn-sm btn-secondary" title="Dodaj"><i class="fas fa-plus"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>

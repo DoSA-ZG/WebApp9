@@ -1,0 +1,25 @@
+@model RPPP_WebApp.Models.Posao
+
+
+<tr hx-target="this" hx-swap="outerHTML">
+    <td class="text-left">@Model.Naziv</td>
+    <td class="text-left">@Model.Projekt.ImeProjekta</td>
+    <td class="text-left">@Model.OcekivaniPocetak.ToString("dd/M/yyyy")</td>
+    <td class="text-left">@Model.OcekivaniZavrsetak.ToString("dd/M/yyyy")</td>
+    <td class="text-left">@Model.Budzet</td>
+    <td class="text-left">@Model.VrstaPosla.Naziv</td>
+    <td>
+        <a asp-action="Edit"
+           asp-route-id="@Model.Id"
+           class="btn btn-sm"
+           title="Ažuriraj">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+    <td>
+        <button class="btn-danger btn btn-sm" hx-confirm="Obrisati posao?" hx-delete="@Url.Action(nameof(PosaoController.Delete), new { id = Model.Id })">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+
+</tr>

@@ -1,0 +1,33 @@
+﻿@model RPPP_WebApp.Models.KategorijaDokumenta
+
+@{
+    ViewBag.Title = "Ažuriranje kategorije dokumenta";
+}
+
+<form asp-route-id="@Model.KategorijaDokumentaId"
+      asp-route-page="@ViewBag.Page"
+      asp-route-sort="@ViewBag.Sort"
+      asp-route-ascending="@ViewBag.Ascending"
+      asp-action="Edit"
+      method="post">
+
+    <input asp-for="KategorijaDokumentaId" class="form-control" type="hidden" />
+
+    <td class="text-start">
+        <label asp-for="NazivKategorijeDokumenta"></label>
+        <span asp-validation-for="NazivKategorijeDokumenta" class="text-danger"></span>
+        <input asp-for="NazivKategorijeDokumenta" class="form-control" />
+    </td>
+
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Ažuriraj</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">
+            Odustani
+        </a>
+    </div>
+
+</form>

@@ -1,0 +1,23 @@
+﻿@model RPPP_WebApp.Models.Osoba
+
+<tr hx-target="this" hx-swap="outerHTML">
+    <td class="text-left">@Model.ImeOsobe</td>
+    <td class="text-left">@Model.PrezimeOsobe</td>
+    <td class="text-left">@Model.Email</td>
+    <td class="text-left">@Model.Telefon</td>
+    <td class="text-left">@Model.Iban</td>
+    <td>
+        <a asp-action="Edit"
+           asp-route-id="@Model.IdOsoba"
+           class="btn btn-sm"
+           title="Ažuriraj">
+            <i class="fas fa-edit"></i>
+        </a>
+    </td>
+    <td>
+        <button class="btn-danger btn btn-sm" hx-confirm="Izbrisati osobu?" hx-delete="@Url.Action(nameof(OsobaV2Controller.Delete), new { id = Model.IdOsoba })">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </td>
+
+</tr>

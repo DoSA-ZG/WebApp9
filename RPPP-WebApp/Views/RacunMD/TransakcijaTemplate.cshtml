@@ -1,0 +1,41 @@
+﻿<table id="template" style="visibility:hidden">
+    <tr>
+        <td class="text-left" id="idColumn">
+            <input type="hidden" id="count" value="--sifra--"/>
+            <input name="Transakcija[--sifra--].VanjskiIban" class="form-control" value="--vanjskiIban--"/>
+            <input id="idValue" name="Transakcija[--sifra--].Id" value="" type="hidden"/>
+            <input type="hidden" name="Transakcija[--sifra--].Id" value="0"/>
+        </td>
+        @{
+            var dateTime1 = DateTime.Now;
+            var autocompleteKey1 = dateTime1.ToString() + dateTime1.Nanosecond + dateTime1.Millisecond;
+            <td class="text-left col-sm-1">
+                <input class="form-control" value="--unutarnji--"
+                       data-autocomplete="Racun" data-autocomplete-placeholder-name="@autocompleteKey1"/>
+                <input name="Transakcija[--sifra--].UnutarnjiIdRacuna" type="hidden" class="form-control" value="--unutarnjiId--"
+                       data-autocomplete-placeholder="@autocompleteKey1"/>
+            </td>
+        }
+        <td class="text-left col-sm-1">
+            <input name="Transakcija[--sifra--].Iznos" class="form-control" value="--iznos--"/>
+        </td>
+        @{
+            var dateTime = DateTime.Now;
+            var autocompleteKey = dateTime.ToString() + dateTime.Nanosecond + dateTime.Millisecond;
+            <td class="text-left col-sm-1">
+                <input class="form-control" value="--vrsta--"
+                       data-autocomplete="VrstaTransakcije" data-autocomplete-placeholder-name="@autocompleteKey"/>
+                <input name="Transakcija[--sifra--].IdvrstaTransakcije" type="hidden" class="form-control" value="--vrstaId--"
+                       data-autocomplete-placeholder="@autocompleteKey"/>
+            </td>
+        }
+        <td class="text-left col-sm-1">
+            <input name="Transakcija[--sifra--].SmjerTransakcije" class="form-control" value="--smjer--"/>
+        </td>
+        <td>
+            <button class="btn btn-sm btn-danger deleterow" title="Izbaci">
+                <i class="fas fa-minus"></i>
+            </button>
+        </td>
+    </tr>
+</table>

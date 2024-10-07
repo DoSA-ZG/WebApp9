@@ -1,0 +1,46 @@
+@model RPPP_WebApp.Models.Racun
+
+@{
+    ViewBag.Title = "Novi račun";
+}
+
+<form asp-action="Create" method="post">
+
+    <td class="text-start">
+        <label asp-for="ImeRacuna">Naziv</label>
+        <span asp-validation-for="ImeRacuna" class="text-danger"></span>
+        <input asp-for="ImeRacuna" class="form-control" maxlength="50"/>
+    </td>
+
+    <td class="text-start">
+        <label asp-for="Iban">IBAN</label>
+        <span asp-validation-for="Iban" class="text-danger"></span>
+        <input asp-for="Iban" class="form-control" type="text" maxlength="34"/>
+    </td>
+
+    <div class="form-group">
+        <label class="form-label">Valuta</label>
+        <select class="form-control" asp-for="IdValuta" asp-items="ViewBag.Valute">
+            <option disabled selected value="">Odaberite valutu</option>
+        </select>
+        <div class="form-text">
+            <span asp-validation-for="IdValuta" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Spremi</button>
+        <a asp-action="Index"
+           asp-route-page="@ViewBag.Page"
+           asp-route-sort="@ViewBag.Sort"
+           asp-route-ascending="@ViewBag.Ascending"
+           class="btn btn-secondary">
+            Odustani
+        </a>
+    </div>
+
+</form>
+
+@section scripts {
+    <partial name="IncludeValidation"/>
+}

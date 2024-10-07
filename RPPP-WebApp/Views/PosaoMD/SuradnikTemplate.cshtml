@@ -1,0 +1,35 @@
+﻿<table id="template" style="visibility:hidden">
+    <tr>
+        <td class="text-left" id="idColumn">
+            <input type="hidden" id="count" value="--sifra--" />
+            <input name="Suradnik[--sifra--].Naziv" value="--naziv--"  />
+            <input id="idValue" name="Suradnik[--sifra--].Id" value="" type="hidden" />
+            <input type="hidden" name="Suradnik[--sifra--].Id" value="0" />
+        </td>
+        <td class="text-left col-sm-1">
+            <input name="Suradnik[--sifra--].Oib" class="form-control" value="--oib--"  />
+        </td>
+        <td class="text-left col-sm-1">
+            <input name="Suradnik[--sifra--].Adresa" class="form-control" value="--adresa--"  />
+        </td>
+        <td class="text-left col-sm-1">
+            <input name="Suradnik[--sifra--].PostanskiBroj" class="form-control" value="--postanskiBroj--"  />
+        </td>
+        <td class="text-left col-sm-1">
+            <input name="Suradnik[--sifra--].Grad" class="form-control" value="--grad--"  />
+        </td>
+        @{
+            var dateTime = DateTime.Now;
+            var autocompleteKey = dateTime.ToString() + dateTime.Nanosecond + dateTime.Millisecond;
+            <td class="text-left col-sm-1">
+                <input class="form-control" value="--vrstaSuradnika--" 
+                data-autocomplete="VrstaSuradnika" data-autocomplete-placeholder-name="@autocompleteKey"/>
+                <input name="Suradnik[--sifra--].VrstaSuradnikaId" type="hidden" class="form-control" value="--vrstaSuradnikaId--" 
+                data-autocomplete-placeholder="@autocompleteKey"/>
+            </td>
+        }
+        <td>
+            <button class="btn btn-sm btn-danger deleterow" title="Izbaci"><i class="fas fa-minus"></i></button>
+        </td>
+    </tr>
+</table>

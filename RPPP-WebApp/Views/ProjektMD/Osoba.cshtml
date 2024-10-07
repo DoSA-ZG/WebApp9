@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Osoba>
+
+<h2>Osobe</h2>
+<table class="table table-striped" id="table-suradnici">
+    <caption>Popis osoba</caption>
+    <thead>
+        <tr>
+            @{
+                var count = 0;
+                string[] nazivi = { "Ime", "Prezime", "Email", "Telefon"};
+                for (int i = 1; i <= nazivi.Length; i++)
+                {
+                    <th class="text-left">
+                        @nazivi[i - 1]
+                    </th>
+                }
+                <th></th>
+            }
+        <tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var osoba in Model)
+            {
+                var dateTime = DateTime.Now;
+                var autocompleteKey = dateTime.ToString() + dateTime.Nanosecond + dateTime.Millisecond;
+                <tr>
+                    <td class="text-left" id="idColumn">
+                        <input type="hidden" id="count" value="@count" />
+                        <input name="Osoba[@count].Naziv" value="@osoba.ImeOsobe" />
+                        <input id="idValue" name="Osoba[@count].Id" value="@osoba.IdOsoba" type="hidden" />
+                    </td>
+                    <td class="text-left">
+                        <input name="Osoba[@count].OcekivaniPocetak" value="@osoba.PrezimeOsobe" />
+                    </td>
+                    <td class="text-left">
+                        <input name="Osoba[@count].OcekivaniZavrsetak" value="@osoba.Email" />
+                    </td>
+                    <td class="text-left">
+                        <input name="Osoba[@count].Budzet" value="@osoba.Telefon" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger deleterow" title="Izbaci"><i class="fa fa-minus"></i></button>
+                    </td>
+                </tr>
+                ++count;
+            }
+        }
+
+        <tr>
+            <td class="text-left col-sm-1">
+                <input id="osobe-ime" />
+                <input id="zadnji-count" value="@count" hidden="hidden" />
+            </td>
+            <td class="text-left col-sm-1">
+                <input id="osobe-prezime" />
+            </td>
+            <td class="text-left col-sm-1">
+                <input id="osobe-email" />
+            </td>
+            <td class="text-left col-sm-1">
+                <input id="osobe-telefon" />
+            </td>
+            <td>
+                <button id="osoba-dodaj" class="btn btn-sm btn-secondary" title="Dodaj"><i class="fas fa-plus"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>

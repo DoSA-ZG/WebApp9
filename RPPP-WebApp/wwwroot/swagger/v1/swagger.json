@@ -1,0 +1,528 @@
+﻿{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "RPPP Web API",
+    "version": "v1"
+  },
+  "paths": {
+    "/Lookup/VrsteSuradnika": {
+      "get": {
+        "tags": [
+          "Lookup"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptionsResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptionsResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptionsResult"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Lookup"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptionsResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptionsResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptionsResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/VrstaSuradnika/count": {
+      "get": {
+        "tags": [
+          "VrstaSuradnika"
+        ],
+        "summary": "Vraća broj svih vrsta suradnika filtriran prema nazivu",
+        "operationId": "BrojVrstaSuradnika",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Opcionalni filter za naziv vrste suradnika",
+            "schema": {
+              "type": "string",
+              "description": "Opcionalni filter za naziv vrste suradnika",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/VrstaSuradnika": {
+      "get": {
+        "tags": [
+          "VrstaSuradnika"
+        ],
+        "summary": "Dohvat vrste suradnika (opcionalno filtrirano po nazivu).\r\nBroj vrsta suradnika, poredak, početna pozicija određeni s loadParams.",
+        "operationId": "DohvatiVrsteSuradnika",
+        "parameters": [
+          {
+            "name": "jtStartIndex",
+            "in": "query",
+            "description": "Starting row (i.e. skips First-1 rows)",
+            "required": true,
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 0,
+              "type": "integer",
+              "description": "Starting row (i.e. skips First-1 rows)",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "jtPageSize",
+            "in": "query",
+            "description": "Number of elements to return",
+            "required": true,
+            "schema": {
+              "maximum": 2147483647,
+              "minimum": 1,
+              "type": "integer",
+              "description": "Number of elements to return",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "jtSorting",
+            "in": "query",
+            "description": "Name of a column. Must be same as in corresponding DTO object, case insensitive",
+            "schema": {
+              "type": "string",
+              "description": "Name of a column. Must be same as in corresponding DTO object, case insensitive",
+              "nullable": true
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Global filter parameter",
+            "schema": {
+              "type": "string",
+              "description": "Global filter parameter",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VrstaSuradnika"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VrstaSuradnika"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/VrstaSuradnika"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "VrstaSuradnika"
+        ],
+        "summary": "Stvara vrstu suradnika opisom poslanim modelom",
+        "operationId": "DodajVrstuSuradnika",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VrstaSuradnika"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VrstaSuradnika"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/VrstaSuradnika"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/VrstaSuradnika/{id}": {
+      "get": {
+        "tags": [
+          "Vrsta"
+        ],
+        "summary": "Vraća vrstu suradnika čiji je Id jednak vrijednosti parametra id",
+        "operationId": "DohvatiVrstuSuradnika",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "IdVrstaSuradnika",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "IdVrstaSuradnika",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/VrstaSuradnika"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VrstaSuradnika"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VrstaSuradnika"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "VrstaSuradnika"
+        ],
+        "summary": "Brisanje vrste suradnika određenog s id",
+        "operationId": "ObrisiVrstuSuradnika",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Vrijednost primarnog ključa (Id vrste suradnika)",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Vrijednost primarnog ključa (Id vrste suradnika)",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Ako je vrsta uspješno obrisana"
+          },
+          "404": {
+            "description": "Ako vrsta s poslanim id-om ne postoji",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "VrstaSuradnika"
+        ],
+        "summary": "Ažurira vrstu suradnika",
+        "operationId": "AzurirajVrstuSuradnika",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "parametar čija vrijednost jednoznačno identificira vrstu suradnika",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "parametar čija vrijednost jednoznačno identificira vrstu suradnika",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Podaci o vrsti suradnika. IdVrstaSuradnika mora se podudarati s parametrom id",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VrstaSuradnika"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VrstaSuradnika"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/VrstaSuradnika"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TextValue": {
+        "type": "object",
+        "properties": {
+          "DisplayText": {
+            "type": "string",
+            "nullable": true
+          },
+          "Value": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OptionsResult": {
+        "type": "object",
+        "properties": {
+          "Result": {
+            "type": "string",
+            "nullable": true
+          },
+          "Message": {
+            "type": "string",
+            "nullable": true
+          },
+          "Options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TextValue"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "VrstaSuradnika": {
+        "type": "object",
+        "properties": {
+          "IdVrstaSuradnika": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Naziv": {
+            "type": "string",
+            "nullable": true
+          },
+          "Opis": {
+            "type": "string",
+            "nullable": true
+          },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {}
+      }
+    }
+  }
+}

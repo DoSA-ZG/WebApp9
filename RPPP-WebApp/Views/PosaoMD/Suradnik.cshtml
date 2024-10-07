@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Suradnik>
+
+<table class="table table-striped" id="table-suradnici">
+    <thead>
+        <tr>
+            @{
+                var count = 0;
+                string[] nazivi = { "Naziv", "OIB", "Adresa", "Postanski broj",
+            "Grad","Vrsta suradnika"};
+                for (int i = 1; i <= nazivi.Length; i++)
+                {
+                    <th class="text-left">
+                        @nazivi[i - 1]
+                    </th>
+                }
+                <th></th>
+            }
+        <tr>
+    </thead>
+    <tbody>
+        @if(Model != null)
+        {
+            @foreach (var suradnik in Model)
+            {
+                var dateTime = DateTime.Now;
+                var autocompleteKey = dateTime.ToString() + dateTime.Nanosecond + dateTime.Millisecond;
+                <tr>
+                    <td class="text-left" id="idColumn">
+                        <input type="hidden" id="count" value="@count" />
+                        <input name="Suradnik[@count].Naziv" value="@suradnik.Naziv" />
+                        <input id="idValue" name="Suradnik[@count].Id" value="@suradnik.Id" type="hidden"/>
+                    </td>
+                    <td class="text-left">
+                        <input name="Suradnik[@count].Oib" value="@suradnik.Oib"  />
+                    </td>
+                    <td class="text-left">
+                        <input name="Suradnik[@count].Adresa" value="@suradnik.Adresa"  />
+                    </td>
+                    <td class="text-left">
+                        <input name="Suradnik[@count].PostanskiBroj" value="@suradnik.PostanskiBroj"  />
+                    </td>
+                    <td class="text-left">
+                        <input name="Suradnik[@count].Grad" value="@suradnik.Grad"  />
+                    </td>
+                    <td class="text-left">
+                        <input value="@suradnik.VrstaSuradnika.Naziv" type="text" 
+                        data-autocomplete="VrstaSuradnika" data-autocomplete-placeholder-name="@autocompleteKey"/>
+                        <input id="suradnik-vrstaId"
+                        name="Suradnik[@count].VrstaSuradnikaId" value="@suradnik.VrstaSuradnikaId" hidden="hidden"
+                        data-autocomplete-placeholder="@autocompleteKey"/>
+
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger deleterow" title="Izbaci"><i class="fa fa-minus"></i></button>
+                    </td>
+                </tr>
+                ++count;
+            }
+        }
+
+        <tr>
+            <td class="text-left col-sm-1">
+                <input id="suradnici-naziv"/>
+                <input id="zadnji-count" value="@count" hidden="hidden" />
+            </td>
+            <td class="text-left col-sm-1">
+                <input id="suradnici-oib"/>
+            </td>
+            <td class="text-left col-sm-1">
+                <input id="suradnici-adresa"/>
+            </td>
+            <td class="text-left col-sm-1">
+                <input id="suradnici-postanskiBroj"/>
+            </td>
+            <td class="text-left col-sm-1">
+                <input id="suradnici-grad"/>
+            </td>
+            <td class="text-left col-sm-1">
+                <input id="suradnik-vrsta"
+                data-autocomplete-placeholder-name="suradnikId" data-autocomplete="VrstaSuradnika" />
+                <input id="suradnik-vrstaId" data-autocomplete-placeholder="suradnikId" type="hidden"/>
+            </td>
+            <td>
+                <button id="suradnik-dodaj" class="btn btn-sm btn-secondary" title="Dodaj"><i class="fas fa-plus"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>

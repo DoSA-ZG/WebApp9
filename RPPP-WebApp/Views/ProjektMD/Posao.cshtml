@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Posao>
+
+<h2>Poslovi</h2>
+<table class="table table-striped" id="table-poslovi">
+    <caption>Popis poslova</caption>
+    <thead>
+        <tr>
+            @{
+                var count = 0;
+                string[] nazivi = { "Naziv", "Očekivani Početak", "Očekivani završetak", "Budžet", "Vrsta posla" };
+                for (int i = 1; i <= nazivi.Length; i++)
+                {
+                    <th class="text-left">
+                        @nazivi[i - 1]
+                    </th>
+                }
+                <th></th>
+            }
+        <tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var posao in Model)
+            {
+                var dateTime = DateTime.Now;
+                var autocompleteKey = dateTime.ToString() + dateTime.Nanosecond + dateTime.Millisecond;
+                <tr>
+                    <td class="text-left" id="idColumn">
+                        <input type="hidden" id="count" value="@count" />
+                        <input name="Posao[@count].Naziv" value="@posao.Naziv" />
+                        <input id="idValue" name="Posao[@count].Id" value="@posao.Id" type="hidden" />
+                    </td>
+                    <td class="text-left">
+                        <input type="date" name="Posao[@count].OcekivaniPocetak" value="@posao.OcekivaniPocetak.ToString("yyyy-MM-dd")" />
+                    </td>
+                    <td class="text-left">
+                        <input type="date" name="Posao[@count].OcekivaniZavrsetak" value="@posao.OcekivaniZavrsetak.ToString("yyyy-MM-dd")" />
+                    </td>
+                    <td class="text-left">
+                        <input name="Posao[@count].Budzet" value="@posao.Budzet" />
+                    </td>
+                    <td class="text-left">
+                        <input value="@posao.VrstaPosla?.Naziv" type="text"
+                               data-autocomplete="VrstaPosla" data-autocomplete-placeholder-name="@autocompleteKey" />
+                        <input name="Posao[@count].VrstaPoslaId" value="@posao.VrstaPoslaId" hidden="hidden"
+                               data-autocomplete-placeholder="@autocompleteKey" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger deleterow" title="Izbaci"><i class="fa fa-minus"></i></button>
+                    </td>
+                   
+                </tr>
+                ++count;
+            }
+        }
+
+        <tr>
+            <td class="text-left col-sm-1">
+                <input id="poslovi-naziv" />
+                <input id="posao-zadnji-count" value="@count" hidden="hidden" />
+            </td>
+            <td class="text-left col-sm-1">
+               <input id="poslovi-ocekivaniPocetak" type="date"/>
+            </td>
+            <td class="text-left col-sm-1">
+                <input id="poslovi-ocekivaniZavrsetak" type="date" />
+            </td>
+            <td class="text-left col-sm-1">
+                <input id="poslovi-budzet" />
+            </td>
+            <td class="text-left col-sm-1">
+                <input id="posao-vrstaPosla"
+                       data-autocomplete-placeholder-name="posaoId" data-autocomplete="VrstaPosla" />
+                <input id="posao-vrstaPoslaId" data-autocomplete-placeholder="posaoId" type="hidden" />
+            </td>
+            <td>
+                <button id="posao-dodaj" class="btn btn-sm btn-secondary" title="Dodaj"><i class="fas fa-plus"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>

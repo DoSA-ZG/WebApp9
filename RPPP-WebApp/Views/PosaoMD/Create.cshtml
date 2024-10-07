@@ -1,0 +1,62 @@
+﻿@model RPPP_WebApp.ViewModels.PosaoMDViewModel
+
+@{
+    ViewBag.Title = "Nova master detail forma (suradnik-posao)";
+}
+<div>
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label class="form-label">Naziv</label>
+            <input asp-for="Naziv" class="form-control" />
+            <span asp-validation-for="Naziv" class="text-danger"></span>
+        </div>
+                <div class="mb-3">
+            <label class="form-label">Projekt</label>
+            <input class="form-control" data-autocomplete="Projekt" data-autocomplete-placeholder-name="projekt"
+            asp-for="@Model.Posao.Projekt.ImeProjekta" />
+            <input type="hidden" asp-for="ProjektId" readonly="readonly" class="form-control" data-autocomplete-placeholder="projekt" />
+            <span asp-validation-for="ProjektId" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ocekivani pocetak</label>
+            <input asp-for="OcekivaniPocetak" class="form-control" value="2024-01-01" type="date" />
+            <span asp-validation-for="OcekivaniPocetak" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Ocekivani zavrsetak</label>
+            <input asp-for="OcekivaniZavrsetak" class="form-control" value="2024-01-01" type="date" />
+            <span asp-validation-for="OcekivaniZavrsetak" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Budzet (EUR)</label>
+            <input asp-for="Budzet" class="form-control" />
+            <span asp-validation-for="Budzet" class="text-danger"></span>
+        </div>
+            <div class="mb-3">
+            <label class="form-label">Vrsta posla</label>
+            <input class="form-control" data-autocomplete="VrstaPosla" data-autocomplete-placeholder-name="vrstaPosla"/>
+            <input asp-for="VrstaPoslaId" readonly="readonly" class="form-control" data-autocomplete-placeholder="vrstaPosla" type="hidden"/>
+            <span asp-validation-for="VrstaPoslaId" class="text-danger"></span>
+        </div>
+        <div>
+            <partial name="Suradnik" model="Model?.Posao?.Suradnik" />
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">Dodaj</button>
+            <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+        </div>
+    </form>
+</div>
+
+<partial name="SuradnikTemplate" />
+
+@section styles{
+    <link rel="stylesheet" href="~/lib/jqueryui/themes/base/jquery-ui.css" />
+}
+
+@section scripts{
+    <partial name="IncludeValidation" />
+    <script src="~/lib/jqueryui/jquery-ui.js"></script>
+    <script src="~/js/autocomplete.js" asp-append-version="true"></script>
+    <script src="~/js/josipMD.js" asp-append-version="true"></script>
+}

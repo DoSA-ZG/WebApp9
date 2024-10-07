@@ -1,0 +1,27 @@
+﻿<table id="template" style="visibility:hidden">
+    <tr>
+        <td class="text-left" id="idColumn">
+            <input type="hidden" id="count" value="--sifra--" />
+            <input name="Dokument[--sifra--].Naslov" value="--naslov--" />
+            <input id="idValue" name="Dokument[--sifra--].DokumentId" value="" type="hidden" />
+            <input type="hidden" name="Dokument[--sifra--].DokumentId" value="0" />
+        </td>
+        @{
+            var dateTime = DateTime.Now;
+            var autocompleteKey = dateTime.ToString() + dateTime.Nanosecond + dateTime.Millisecond;
+            <td class="text-left col-sm-1">
+                <input class="form-control" value="--kategorijaDokumenta--"
+                       data-autocomplete="KategorijaDokumenta" data-autocomplete-placeholder-name="@autocompleteKey" />
+                <input name="Dokument[--sifra--].KategorijaDokumentaId" type="hidden" class="form-control" value="--kategorijaDokumentaId--"
+                       data-autocomplete-placeholder="@autocompleteKey" />
+            </td>
+        }
+        <td class="text-left col-sm-1">
+            <textarea name="Dokument[--sifra--].Sadrzaj" rows="3">--sadrzaj--</textarea>
+        </td>
+       
+        <td>
+            <button class="btn btn-sm btn-danger deleterow" title="Izbaci"><i class="fas fa-minus"></i></button>
+        </td>
+    </tr>
+</table>

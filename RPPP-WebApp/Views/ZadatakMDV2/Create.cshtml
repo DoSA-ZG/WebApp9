@@ -1,0 +1,71 @@
+﻿@model RPPP_WebApp.ViewModels.ZadatakMDV2ViewModel
+
+@{
+    ViewBag.Title = "Nova master detail forma (zadužena osoba-zadatak)";
+}
+
+<div>
+    <form asp-action="Create" method="post">
+        <div class="mb-3">
+            <label class="form-label">Naziv</label>
+            <input asp-for="Naziv" class="form-control" />
+            <span asp-validation-for="Naziv" class="text-danger"></span>
+        </div>
+                <div class="mb-3">
+            <label class="form-label">Vrsta zadatka</label>
+            <input class="form-control" data-autocomplete="VrstaZadatka" data-autocomplete-placeholder-name="vrstazdtk" 
+            asp-for="@Model.Zadatak.VrstaZadatka.NazivVrsteZdtk" />
+            <input type="hidden" asp-for="IdVrstaZdtk" readonly="readonly" class="form-control" data-autocomplete-placeholder="vrstazdtk" />
+            <span asp-validation-for="IdVrstaZdtk" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Zahtjev</label>
+            <input class="form-control" data-autocomplete="Zahtjev" data-autocomplete-placeholder-name="zahtjev"
+            asp-for="@Model.Zadatak.Zahtjev.Naziv" />
+            <input type="hidden" asp-for="IdZahtjev" readonly="readonly" class="form-control" data-autocomplete-placeholder="zathjev" />
+            <span asp-validation-for="IdZahtjev" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Osoba</label>
+            <input class="form-control" data-autocomplete="Osoba" data-autocomplete-placeholder-name="osoba"/>
+            <input type="hidden" asp-for="IdOsoba" readonly="readonly" class="form-control" data-autocomplete-placeholder="osoba" />
+            <span asp-validation-for="IdOsoba" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Vrijeme isporuke</label>
+            <input asp-for="VrijemeIsporuke" class="form-control" value="2024-01-01" type="date" />
+            <span asp-validation-for="VrijemeIsporuke" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Stupanj dovršenosti</label>
+            <input asp-for="StupanjDovrsenosti" class="form-control" />
+            <span asp-validation-for="StupanjDovrsenosti" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Prioritetnost</label>
+            <input asp-for="Prioritetnost" class="form-control" />
+            <span asp-validation-for="Prioritetnost" class="text-danger"></span>
+        </div>
+        <div>
+            <partial name="ZaduzenaOsoba" model="Model?.Zadatak?.ZaduzenaOsoba" />
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit">Dodaj</button>
+            <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+        </div>
+    </form>
+</div>
+
+<partial name="OsobaTemplate" />
+
+@section styles {
+        <link rel="stylesheet" href="~/lib/jqueryui/themes/base/jquery-ui.css" />
+}
+
+@section scripts {
+        <partial name="IncludeValidation" />
+        <script src="~/lib/jqueryui/jquery-ui.js"></script>
+        <script src="~/js/autocomplete.js" asp-append-version="true"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/js/mirtaMD.js" asp-append-version="true"></script>
+}
